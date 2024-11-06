@@ -1,0 +1,54 @@
+print("Sales")
+print()
+
+
+product_db = {
+    "7675864382017": {"name": "Hoodies/Sweaters", "price": 2.00, "cost": 0.00},
+    "1053234896276": {"name": "Pants", "price": 15.00, "cost": 0.00},
+    "897624524602": {"name": "Shirt", "price": 25.00, "cost": 0.00},
+    "7999500063161": {"name": "Longsleve shirt", "price": 23.00, "cost": 0.00},
+    "3059287682147": {"name": "Short ", "price": 21.00, "cost": 0.00},
+    "6354858249024": {"name": "shortsleve shirt", "price": 5.00, "cost": 0.00},
+    "4499626976541": {"name": "Hats", "price": 20.00, "cost": 0.00},
+    "5369434311003": {"name": "Gloves", "price": 20.00, "cost": 0.00},
+    "8757653415942": {"name": "Product C", "price": 29.00, "cost": 0.00}
+    
+}
+
+sales = {}
+
+while True:
+    barcode = input("Scan barcode (type 'stop' to end): ")
+    if barcode.lower() == 'stop':
+        break
+    elif barcode in product_db:
+        if barcode in sales:
+            sales[barcode]['quantity'] += 1
+        else:
+            sales[barcode] = {
+                "name": product_db[barcode]["name"],
+                "price": product_db[barcode]["price"],
+                "cost": product_db[barcode]["cost"],
+                "quantity": 1
+            }
+    else:
+        print("Invalid barcode")
+
+total_revenue = 0
+total_quantity_sold = 0
+total_gross_profit = 0
+
+print("\nSales Summary:")
+for barcode, details in sales.items():
+    product_revenue = details["price"] * details["quantity"]
+    product_cost = details["cost"] * details["quantity"]
+    gross_profit = product_revenue - product_cost
+    total_revenue += product_revenue
+    total_quantity_sold += details["quantity"]
+    total_gross_profit += gross_profit
+    print(f"Product: {details['name']}, Quantity Sold: {details['quantity']}, Revenue: ${product_revenue:.2f}, Gross Profit: ${gross_profit:.2f}")
+
+print(f"\nTotal Quantity Sold: {total_quantity_sold}")
+print(f"Total Revenue: ${total_revenue:.2f}")
+print(f"Total Gross Profit: ${total_gross_profit:.2f}")
+
